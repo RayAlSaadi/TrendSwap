@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Men's Clothing - TrendSwap</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: white;
+        color: black;
+    }
+
+    header {
+        background-color: #4B3621;
+        color: white;
+        padding: 15px;
+        text-align: center;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 2rem;
+    }
+
+    nav {
+        margin-top: 10px;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        font-weight: bold;
+    }
+
+    nav a:hover {
+        text-decoration: underline;
+    }
+
+    main {
+        padding: 20px;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    .product-grid {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .product {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 5px;
+        max-width: 200px;
+        text-align: center;
+    }
+
+    .product img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .add-to-basket {
+        background-color: #4B3621;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .add-to-basket:hover {
+        background-color: #3a2717;
+    }
+
+    footer {
+        background-color: #4B3621;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        margin-top: 20px;
+        font-size: 0.9rem;
+    }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>TrendSwap</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="mens.html">Men</a>
+            <a href="womens.html">Women</a>
+            <a href="shoes.html">Shoes</a>
+            <a href="accessories.html">Accessories</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Men's Clothing</h2>
+        <div class="product-grid">
+            <div class="product">
+                <img src="placeholder1.jpg" alt="Men's Product 1">
+                <button class="add-to-basket">Add to Basket</button>
+            </div>
+
+            <div class="product">
+                <img src="placeholder2.jpg" alt="Men's Product 2">
+                <button class="add-to-basket">Add to Basket</button>
+            </div>
+
+            <div class="product">
+                <img src="placeholder3.jpg" alt="Men's Product 3">
+                <button class="add-to-basket">Add to Basket</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 TrendSwap. All rights reserved.</p>
+    </footer>
+</body>
+</html>
