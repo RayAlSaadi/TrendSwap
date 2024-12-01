@@ -4,15 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Men's Collection</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <title>About Us</title>
 </head>
 
 <body>
+    <!-- Delivery Info -->
     <div class="delivery-info">
         Free Delivery Available | Find out more
     </div>
+
+    <!-- Navigation Bar -->
     <div class="navbar">
         <div class="navbar-left">
             <div class="navbar-logo">
@@ -20,12 +23,12 @@
             </div>
             <div class="navbar-links">
                 <a href="home.html">HOME</a>
-                <a href="men.html">MEN</a>
+                <a href="men.html" class="active">MEN</a>
                 <a href="woman.html">WOMAN</a>
                 <a href="kids.html">KIDS</a>
                 <a href="accessories.html">ACCESSORIES</a>
                 <a href="babies.html">BABIES</a>
-                <a href="aboutus.html" class="active">ABOUT US</a>
+                <a href="aboutus.html">ABOUT US</a>
             </div>
         </div>
         <div class="navbar-right">
@@ -36,7 +39,7 @@
                 <img src="Images/Bag.png" alt="Bag">
             </div>
             <div class="person-icon">
-                <a href="signin.php"><img src="Images/Person.png" alt="Person" id="person-icon"></a>
+                <img src="Images/Person.png" alt="Person" id="person-icon">
             </div>
             <div class="search-bar" id="search-bar">
                 <input type="text" placeholder="Search...">
@@ -44,41 +47,70 @@
         </div>
     </div>
 
-    <div class="about-container">
-        <h1>About TrendSwap</h1>
-        <p>
-            Welcome to TrendSwap! We are a clothing company that specializes in men's, women's, and children's clothing,
-            accessories, and more. TrendSwap is the perfect platform to explore the latest fashion without the hassle.
-        </p>
-        <h2>Our Mission</h2>
-        <p>
-            Our mission is to provide a sustainable, convenient, and innovative shopping experience. At TrendSwap, we
-            believe in promoting eco-friendly practices while helping people discover new styles. We make it easy for
-            you to swap, buy, and sell fashion items, giving everyone access to high-quality, affordable clothing.
-        </p>
-        <h2>Our Team</h2>
-        <p>
-            Our team is passionate about fashion, technology, and creating an amazing customer experience. From
-            experienced designers to customer support specialists, we work hard to bring you the best service possible.
-            We are continuously working on expanding our platform to make it even easier for you to participate in the
-            TrendSwap community.
-        </p>
-        <h2>Contact Us</h2>
-        <p>If you have any questions or need support, feel free to reach out to us:</p>
-        <ul>
-            <li>Email: support@trendswap.com</li>
-            <li>Phone: 07123456789</li>
-            <li>Address: Aston Uni</li>
-        </ul>
-    </div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <img src="Images/home.webp" alt="Winter Outfit">
+        <div class="caption">
+            <h2>Wrapping Up for Winter</h2>
+            <p>We've got an outerwear style to match every one of this season's dress codes – whether you're heading out on a country walk or hitting the slopes.</p>
+        </div>
+    </section>
 
+    <section class="hero-section">
+        <div class="caption">
+            <h2>Into the Outdoors</h2>
+            <p>From lightweight and warm to heavy and enveloping, these outerwear styles offer something for every outdoor adventurer.</p>
+        </div>
+        <img src="Images/home2.webp" alt="Outdoor Outfit">
+    </section>
+
+    <!-- Product Grid -->
+    <section class="product-grid">
+        <div class="product">
+            <img src="Images/menshirt.avif" alt="Leather Piston Bomber Jacket">
+            <h3>STUDIO NICHOLSON</h3>
+            <p>Leather Piston Bomber Jacket</p>
+            <p>£1,095.00</p>
+        </div>
+        <div class="product">
+            <img src="Images/men2.avif" alt="Billiards Tapestry Blouson Jacket">
+            <h3>AMIRI</h3>
+            <p>Billiards Tapestry Blouson Jacket</p>
+            <p>£1,710.00</p>
+        </div>
+        <div class="product">
+            <img src="Images/men5.avif" alt="Down Cloud Puffer Jacket">
+            <h3>MOOSE KNUCKLES</h3>
+            <p>Down Cloud Puffer Jacket</p>
+            <p>£1,030.00</p>
+        </div>
+        <div class="product">
+            <img src="Images/men3.avif" alt="Leather Jacket">
+            <h3>Brand Name</h3>
+            <p>Leather Jacket</p>
+            <p>£1,295.00</p>
+        </div>
+        <div class="product">
+            <img src="Images/men5.avif" alt="Down Puffer Jacket">
+            <h3>Brand Name</h3>
+            <p>Down Puffer Jacket</p>
+            <p>£1,150.00</p>
+        </div>
+        <div class="product">
+            <img src="Images/mr.avif" alt="Winter Jacket">
+            <h3>Brand Name</h3>
+            <p>Winter Jacket</p>
+            <p>£1,350.00</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-section about">
                 <h3>About Us</h3>
                 <p>
-                    We are a leading online store providing the latest fashion trends for men, women, and kids. Our
-                    mission is to deliver quality products at affordable prices.
+                    We are a leading online store providing the latest fashion trends for men, women, and kids. Our mission is to deliver quality products at affordable prices.
                 </p>
             </div>
             <div class="footer-section links">
@@ -86,8 +118,8 @@
                 <ul>
                     <li><a href="aboutus.html">About</a></li>
                     <li><a href="contact.html">Contact</a></li>
-                    <li><a href="faqs.html">FAQs</a></li>
-                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
                 </ul>
             </div>
             <div class="footer-section contact">
