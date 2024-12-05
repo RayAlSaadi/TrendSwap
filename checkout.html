@@ -176,8 +176,11 @@
                 <img src="Images/Search.png" alt="Search" id="search-icon">
             </div>
             <div class="bag-icon">
-                <img src="Images/Bag.png" alt="Bag">
+                <a href="checkout.html">
+                    <img src="Images/Bag.png" alt="Bag">
+                </a>
             </div>
+            
             <div class="person-icon">
                 <img src="Images/Person.png" alt="Person" id="person-icon">
             </div>
@@ -236,14 +239,13 @@
 
     <script> src="basket.js"
     
-        // Load Basket Data on Checkout Page
     function displayBasket() {
-        const basket = getBasket(); // Fetch basket data from localStorage
+        const basket = getBasket(); 
         const basketContainer = document.getElementById('basket-container');
         const totalPriceElement = document.getElementById('total-price');
         let total = 0;
 
-        basketContainer.innerHTML = ''; // Clear current basket content
+        basketContainer.innerHTML = ''; 
 
         basket.forEach(item => {
             const itemTotal = item.price * item.quantity;
@@ -266,7 +268,6 @@
         totalPriceElement.textContent = total.toFixed(2);
     }
 
-    // Update Basket Quantities and Remove Items
     document.addEventListener('DOMContentLoaded', () => {
         const basketContainer = document.getElementById('basket-container');
 
@@ -280,7 +281,7 @@
                 if (product) product.quantity = newQuantity;
 
                 saveBasket(basket);
-                displayBasket(); // Recalculate total
+                displayBasket(); 
             }
         });
 
@@ -291,15 +292,14 @@
 
                 const updatedBasket = basket.filter(item => item.name !== productName);
                 saveBasket(updatedBasket);
-                displayBasket(); // Refresh basket
+                displayBasket(); 
             }
         });
 
-        displayBasket(); // Load basket on page load
+        displayBasket(); 
     });
     </script>
     <script src="js/basket.js"></script>
-    <script src="js/checkout.js"></script>  
     
 </body>
 </html>

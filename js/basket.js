@@ -37,14 +37,13 @@ document.addEventListener("change", (e) => {
 
 basketContainer.addEventListener('click', (e) => {
     if (e.target.classList.contains('remove-item')) {
-        const basket = getBasket(); // Retrieve the current basket
-        const productName = e.target.dataset.name; // Get the product name of the clicked item
+        const basket = getBasket(); 
+        const productName = e.target.dataset.name; 
         
-        // Filter the basket to remove only the selected product
         const updatedBasket = basket.filter(item => item.name !== productName);
         
-        saveBasket(updatedBasket); // Save the updated basket back to localStorage
-        displayBasket(); // Refresh the display to reflect changes
+        saveBasket(updatedBasket); 
+        displayBasket(); 
     }
 });
 
@@ -62,9 +61,9 @@ function addToBasket(product) {
     const existingProduct = basket.find(item => item.name === product.name);
 
     if (existingProduct) {
-        existingProduct.quantity += 1; // Increment quantity if already in basket
+        existingProduct.quantity += 1; 
     } else {
-        basket.push({ ...product, quantity: 1 }); // Add new product
+        basket.push({ ...product, quantity: 1 }); 
     }
 
     saveBasket(basket);
