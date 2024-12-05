@@ -1,0 +1,200 @@
+/* Ensure the body takes full height */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures body takes up full height */
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: white;
+    color: black;
+}
+
+/* Delivery Info at the very top */
+.delivery-info {
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-size: 12px;
+    padding: 5px 0;
+    position: fixed;  /* Fixed at the top */
+    top: 0;
+    width: 100%;
+    z-index: 1000;  /* Make sure it's above other content */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar and other content */
+.navbar {
+    margin-top: 30px;  /* Account for the fixed delivery banner */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 10px 50px;
+    border-bottom: 1px solid #ccc;
+    height: 100px;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.navbar-logo img {
+    height: 30px;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 70px;
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: black;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.navbar-links a:hover {
+    color: gray;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    position: relative;
+}
+
+.navbar-right img {
+    height: 20px;
+    cursor: pointer;
+    transition: filter 0.3s ease;
+}
+
+.navbar-right img:hover {
+    filter: brightness(1.5);
+}
+
+/* Make sure content grows and pushes footer to bottom */
+main {
+    flex-grow: 1; /* This ensures content takes up remaining space */
+    padding: 20px;
+    text-align: center;
+}
+
+/* Centering the Men's Clothing title */
+main h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Flexbox layout for product grid */
+.product-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Individual product styling */
+.product {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    max-width: 200px;
+    text-align: center;
+}
+
+/* Product image styling */
+.product img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Add to Basket button styling */
+.add-to-basket {
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect for Add to Basket button */
+.add-to-basket:hover {
+    background-color: #333;
+    transform: scale(1.1); /* Scale up the button when hovered */
+}
+
+/* Footer setup */
+footer {
+    background-color: #333;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    padding: 20px 0;
+    width: 100%;
+    position: relative;
+    margin-top: 50px; /* Add margin to give space between content and footer */
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    margin: 10px;
+}
+
+.footer-section h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.footer-section p, .footer-section ul, .footer-section a {
+    font-size: 14px;
+    margin: 5px 0;
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.social-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.social-icons img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 12px;
+    border-top: 1px solid #444;
+}
