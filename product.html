@@ -35,6 +35,11 @@
     transform-origin: center center; /* Default zoom center */
 }
 
+.product-image:hover img {
+    transform: scale(1.5); /* Scales up the image */
+    cursor: zoom-in; /* Shows the zoom cursor */
+}
+
 .product-info {
     flex: 1;
     max-width: 500px;
@@ -251,6 +256,31 @@
             <p>&copy; 2024 TrendSwap. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <script>
+        let product_image = document.getElementById('product-image');
+        let product_img = document.getElementById('product-img');
+
+        product_image.addEventListener('mousemove', (event) => {
+            let rect = product_image.getBoundingClientRect();
+            
+            // gets the x & y pos by calculating it then making it a percentage
+            let [x, y] = [
+                ((event.clientX - rect.left) / rect.width) * 100,
+                ((event.clientY - rect.top) / rect.height) * 100
+            ];
+            
+            
+            product_img.style.transformOrigin = `${x}% ${y}%`; // updates the zoom with the cursor
+            product_img.style.transform = 'scale(2)'; // enables the zoom effect scaling 2
+        });
+
+        product_image.addEventListener('mouseleave', () => {
+            product_img.style.transformOrigin = 'center center'; // when mouse leaves it resets the focus
+            product_img.style.transform = 'scale(1)'; // resets the zoom back to normal when the mouse leaves the image
+        });
+
+    </script>
 
     
 </body>
