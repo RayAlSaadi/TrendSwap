@@ -1,118 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <title>Men's Collection - TrendSwap</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <title>Men's Collection</title>
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        .delivery-info {
-            background-color: black;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: black;
-            color: white;
-        }
-
-        .navbar .navbar-links a {
-            text-decoration: none;
-            color: white;
-            margin: 0 15px;
-        }
-
-        .hero-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 40px auto;
-            max-width: 1200px;
-            gap: 20px;
-            padding: 0 20px;
-        }
-
-        .hero-section img {
-            width: 48%;
-            border-radius: 5px;
-            object-fit: cover;
-        }
-
-        .hero-section .caption {
-            width: 48%;
-            text-align: left;
-        }
-
-        .caption h2 {
-            font-size: 1.8rem;
-            margin-top: 15px;
-        }
-
-        .caption p {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #333;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .product {
-            text-align: center;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 15px;
-            background-color: #fff;
-        }
-
-        .product img {
-            width: 100%;
-            height: auto;
-            max-width: 200px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        .product h3 {
-            margin: 10px 0;
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-
-        .product p {
-            margin: 5px 0;
-            color: #777;
-        }
-
-        footer {
-            background-color: black;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
+<style>
+    .search-results-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        border: 1px solid #ccc;
+        border-top: none;
+        border-radius: 0 0 4px 4px;
+        max-height: 300px;
+        overflow-y: auto;
+        display: none;
+        z-index: 1000;
+    }
 
+    .search-result-item {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        border-bottom: 1px solid #eee;
+    }
+
+    .search-result-item:hover {
+        background-color: #f5f5f5;
+    }
+
+    .search-result-item img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+
+    .search-result-item .product-info {
+        flex-grow: 1;
+    }
+
+    .search-result-item .product-name {
+        font-weight: bold;
+        margin-bottom: 4px;
+    }
+
+    .search-result-item .product-price {
+        color: #666;
+    }
+
+    .search-history {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .search-history h4 {
+        margin: 0 0 5px 0;
+        color: #666;
+        font-size: 12px;
+    }
+
+    .search-history-item {
+        padding: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .search-history-item:hover {
+        background-color: #f5f5f5;
+    }
+
+    #notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #333;
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+        display: none;
+        z-index: 1000;
+    }
+
+    .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: #ff0000;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 12px;
+    }
+</style>
 <body>
     <div class="delivery-info">
         Free Delivery Available | Find out more
@@ -125,76 +111,188 @@
             </div>
             <div class="navbar-links">
                 <a href="home.html">HOME</a>
-                <a href="men.html">MEN</a>
+                <a href="men.html" class="active">MEN</a>
                 <a href="woman.html">WOMAN</a>
                 <a href="kids.html">KIDS</a>
                 <a href="accessories.html">ACCESSORIES</a>
                 <a href="babies.html">BABIES</a>
-                <a href="about.html">ABOUT US</a>
+                <a href="aboutus.html">ABOUT US</a>
+            </div>
+        </div>
+        <div class="navbar-right">
+            <div class="search-icon">
+                <img src="Images/Search.png" alt="Search" id="search-icon">
+            </div>
+            <div class="search-bar" id="search-bar">
+                <input type="text" placeholder="Search products...">
+                <div class="search-results-dropdown">
+                    <div class="search-history">
+                        <h4>Recent Searches</h4>
+                        <div class="search-history-items"></div>
+                    </div>
+                    <div class="search-results"></div>
+                </div>
+            </div>
+            <div class="bag-icon">
+                <img src="Images/Bag.png" alt="Bag">
+                <span class="cart-count">0</span>
+            </div>
+            <div class="person-icon">
+                <img src="Images/Person.png" alt="Person">
             </div>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <img src="Images/home.webp" alt="Winter Outfit">
-        <div class="caption">
-            <h2>Wrapping Up for Winter</h2>
-            <p>We've got an outerwear style to match every one of this season's dress codes – whether you're heading out on a country walk or hitting the slopes.</p>
-        </div>
-    </section>
-
-    <section class="hero-section">
-        <div class="caption">
-            <h2>Into the Outdoors</h2>
-            <p>From lightweight and warm to heavy and enveloping, these outerwear styles offer something for every outdoor adventurer.</p>
-        </div>
-        <img src="Images/home2.webp" alt="Outdoor Outfit">
-    </section>
+    <div id="notification"></div>
 
     <!-- Product Grid -->
     <section class="product-grid">
-        <div class="product">
-            <img src="Images/menshirt.avif" alt="Leather Piston Bomber Jacket">
-            <h3>STUDIO NICHOLSON</h3>
-            <p>Leather Piston Bomber Jacket</p>
-            <p>£1,095.00</p>
-        </div>
-        <div class="product">
-            <img src="Images/men2.avif" alt="Billiards Tapestry Blouson Jacket">
-            <h3>AMIRI</h3>
-            <p>Billiards Tapestry Blouson Jacket</p>
-            <p>£1,710.00</p>
-        </div>
-        <div class="product">
-            <img src="path-to-product3.jpg" alt="Down Cloud Puffer Jacket">
-            <h3>MOOSE KNUCKLES</h3>
-            <p>Down Cloud Puffer Jacket</p>
-            <p>£1,030.00</p>
-        </div>
-        <div class="product">
-            <img src="path-to-product4.jpg" alt="Leather Jacket">
-            <h3>Brand Name</h3>
-            <p>Leather Jacket</p>
-            <p>£1,295.00</p>
-        </div>
-        <div class="product">
-            <img src="path-to-product5.jpg" alt="Down Puffer Jacket">
-            <h3>Brand Name</h3>
-            <p>Down Puffer Jacket</p>
-            <p>£1,150.00</p>
-        </div>
-        <div class="product">
-            <img src="path-to-product6.jpg" alt="Winter Jacket">
-            <h3>Brand Name</h3>
-            <p>Winter Jacket</p>
-            <p>£1,350.00</p>
-        </div>
+        <!-- Products will be dynamically populated -->
     </section>
 
     <footer>
-        <p>&copy; 2024 TrendSwap. All Rights Reserved.</p>
+        <div class="footer-container">
+            <div class="footer-section about">
+                <h3>About Us</h3>
+                <p>
+                    We are a leading online store providing the latest fashion trends for men, women, and kids. Our mission is to deliver quality products at affordable prices.
+                </p>
+            </div>
+            <div class="footer-section links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="aboutus.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="men2.html">FAQs</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section contact">
+                <h3>Contact Us</h3>
+                <p>Email: info@trendswap.com</p>
+                <p>Phone: +44 7392 284916</p>
+                <div class="social-icons">
+                    <a href="#"><img src="Images/FacebookW.png" alt="Facebook"></a>
+                    <a href="#"><img src="Images/InstagramW.png" alt="Instagram"></a>
+                    <a href="#"><img src="Images/XW.png" alt="X"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TrendSwap. All Rights Reserved.</p>
+        </div>
     </footer>
-</body>
 
+    <!-- Load the product catalog first -->
+    <script src="js/productCatalog.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchIcon = document.getElementById('search-icon');
+            const searchBar = document.getElementById('search-bar');
+            const searchInput = searchBar.querySelector('input');
+            const searchResultsDropdown = searchBar.querySelector('.search-results-dropdown');
+            const searchResultsContainer = searchBar.querySelector('.search-results');
+            const searchHistoryContainer = searchBar.querySelector('.search-history-items');
+            const productGrid = document.querySelector('.product-grid');
+            let isSearchOpen = false;
+
+            // Load and display initial products
+            const initialProducts = productCatalog.getByCategory('men');
+            initialProducts.forEach(product => {
+                productGrid.insertAdjacentHTML('beforeend', createProductCard(product));
+            });
+
+            // Load search history
+            searchHistory.load();
+            updateSearchHistory();
+
+            function updateSearchHistory() {
+                searchHistoryContainer.innerHTML = '';
+                searchHistory.history.forEach(query => {
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'search-history-item';
+                    historyItem.textContent = query;
+                    historyItem.addEventListener('click', () => {
+                        searchInput.value = query;
+                        performSearch(query);
+                    });
+                    searchHistoryContainer.appendChild(historyItem);
+                });
+            }
+
+            function performSearch(query) {
+                const searchResults = productCatalog.search(query);
+                searchResultsContainer.innerHTML = '';
+
+                searchResults.forEach(product => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'search-result-item';
+                    resultItem.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}">
+                        <div class="product-info">
+                            <div class="product-name">${product.name}</div>
+                            <div class="product-price">£${product.price.toFixed(2)}</div>
+                        </div>
+                    `;
+                    resultItem.addEventListener('click', () => {
+                        window.location.href = `product.html?id=${product.id}`;
+                    });
+                    searchResultsContainer.appendChild(resultItem);
+                });
+
+                searchResultsDropdown.style.display = searchResults.length > 0 ? 'block' : 'none';
+            }
+
+            // Search input handler
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.trim();
+                performSearch(query);
+            });
+
+            // Search submission handler
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const query = searchInput.value.trim();
+                    if (query) {
+                        searchHistory.add(query);
+                        updateSearchHistory();
+                    }
+                }
+            });
+
+            // Toggle search bar
+            searchIcon.addEventListener('click', (event) => {
+                event.stopPropagation();
+                if (isSearchOpen) {
+                    searchBar.style.width = '0';
+                    searchBar.classList.remove('open');
+                    searchResultsDropdown.style.display = 'none';
+                } else {
+                    searchBar.style.width = '200px';
+                    searchBar.classList.add('open');
+                    searchInput.focus();
+                    if (searchHistory.history.length > 0) {
+                        searchResultsDropdown.style.display = 'block';
+                    }
+                }
+                isSearchOpen = !isSearchOpen;
+            });
+
+            // Close search when clicking outside
+            document.addEventListener('click', (event) => {
+                if (!searchBar.contains(event.target) && !searchIcon.contains(event.target)) {
+                    searchBar.style.width = '0';
+                    searchBar.classList.remove('open');
+                    searchResultsDropdown.style.display = 'none';
+                    isSearchOpen = false;
+                }
+            });
+
+            // Prevent dropdown from closing when clicking inside it
+            searchResultsDropdown.addEventListener('click', (event) => {
+                event.stopPropagation();
+            });
+        });
+    </script>
+</body>
 </html>
