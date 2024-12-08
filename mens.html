@@ -9,7 +9,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
+<style>
+    #notification {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: black;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-family: 'Montserrat', sans-serif;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    #notification.show {
+        opacity: 1;
+    }
+</style>
+
 <body>
+    <!-- Notification for adding to basket -->
+    <div id="notification"></div>
+    <div id="basket-container"></div>
+
     <div class="delivery-info">
         Free Delivery Available | Find out more
     </div>
@@ -20,7 +46,7 @@
                 <img src="Images/Logo.jpg" alt="Logo">
             </div>
             <div class="navbar-links">
-                <a href="home.html">HOME</a>
+                <a href="index.html">HOME</a>
                 <a href="mens.html" class="active">MEN</a>
                 <a href="woman.html">WOMAN</a>
                 <a href="kids.html">KIDS</a>
@@ -63,7 +89,6 @@
         <img src="Images/home2.webp" alt="Outdoor Outfit">
     </section>
 
-    <!-- Product Grid -->
     <section class="product-grid">
         <div class="product">
             <img src="Images/menshirt.avif" alt="Leather Piston Bomber Jacket">
@@ -78,7 +103,6 @@
             <p>Billiards Tapestry Blouson Jacket</p>
             <p>£1,710.00</p>
             <button class="add-to-basket" data-name="Billiards Tapestry Blouson Jacket" data-price="1710.00" data-image="Images/men2.avif">Add to Basket</button>
-
         </div>
         <div class="product">
             <img src="Images/men5.avif" alt="Down Cloud Puffer Jacket">
@@ -170,11 +194,6 @@
     </script>
 
     <script src="js/basket.js"></script>
-
-    <div id="notification" style="display: none; position: fixed; bottom: 20px; right: 20px; background: black; color: white; padding: 10px 20px; border-radius: 5px; font-family: 'Montserrat', sans-serif;">
-        Item added to the basket!
-    </div>  
-
 </body>
 
 </html>
