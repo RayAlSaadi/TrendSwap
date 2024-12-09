@@ -160,6 +160,10 @@
         Free Delivery Available | Find out more
     </div>
 
+    <!-- Notification for adding to basket -->
+    <div id="notification" style="display: none;"></div>
+    <div id="basket-container"></div>
+
     <!-- Navigation Bar -->
     <div class="navbar">
         <div class="navbar-left">
@@ -211,18 +215,7 @@
 
             <!-- Product Actions -->
             <div class="product-actions">
-                <div class="selectors">
-                    <select class="size-dropdown">
-                        <option value="S">Small</option>
-                        <option value="M">Medium</option>
-                        <option value="L">Large</option>
-                        <option value="XL">Extra Large</option>
-                    </select>
-                    <input type="number" class="quantity-input" value="1" min="1" max="10" style="width: 70px;">
-                </div>
-                <button class="add-to-cart">
-                    <img src="Images/Bag.png" alt="Bag"> Add to Cart
-                </button>
+                <button class="add-to-cart" data-name="Leather Piston Bomber Jacket" data-price="1095.00" data-image="Images/menshirt.avif">Add to Cart</button>
             </div>
         </div>
     </section>
@@ -285,6 +278,8 @@
         });
 
     </script>
+
+<script src="js/basket.js"></script>
 
     
 </body>
