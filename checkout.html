@@ -9,8 +9,12 @@
 </head>
 
 <style>
-    body {
+    html, body {
         margin: 0;
+        display: flex;
+        height: 100%;
+        margin: 0;
+        flex-direction: column;
         font-family: 'Montserrat', sans-serif;
         overflow-x: hidden;
     }
@@ -21,6 +25,7 @@
     }
 
     main {
+        flex-grow: 1;
         padding: 20px 50px;
         max-width: 1200px;
         margin: 0 auto;
@@ -68,6 +73,12 @@
         font-family: 'Montserrat', sans-serif;
         text-align: center;
     }
+
+    .basket-item img.item-image {
+        max-width: 50px; 
+        height: auto; 
+        margin-right: 15px; 
+    }   
 
     .remove-item {
         background-color: white;
@@ -122,6 +133,8 @@
         color: #fff;
         font-family: 'Montserrat', sans-serif;
         padding: 20px 0;
+        text-align: center;
+        border-top: 1px solid #444;
     }
 
     .footer-container {
@@ -166,28 +179,32 @@
             </div>
             <div class="navbar-links">
                 <a href="index.html">HOME</a>
-                <a href="mens.html">MEN</a>
-                <a href="#">WOMAN</a>
-                <a href="#">KIDS</a>
+                <a href="mens.html" >MEN</a>
+                <a href="woman.html">WOMAN</a>
+                <a href="kids.html">KIDS</a>
+                <a href="accessories.html">ACCESSORIES</a>
+                <a href="babies.html">BABIES</a>
+                <a href="aboutus.html">ABOUT US</a>
             </div>
         </div>
         <div class="navbar-right">
             <div class="search-icon">
-                <img src="Images/Search.png" alt="Search" id="search-icon">
+                <a href="searchbar.html">
+                    <img src="Images/Search.png" alt="Search" id="search-icon">
+                </a>
             </div>
             <div class="bag-icon">
                 <a href="checkout.html">
                     <img src="Images/Bag.png" alt="Bag">
                 </a>
-            </div>
-            
+            </div>            
             <div class="person-icon">
                 <img src="Images/Person.png" alt="Person" id="person-icon">
             </div>
-
             <div class="search-bar" id="search-bar">
                 <input type="text" placeholder="Search...">
             </div>
+        </div>
         </div>
     </div>
 
@@ -215,10 +232,10 @@
             <div class="footer-section links">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">FAQs</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="aboutus.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="faqs.html">FAQs</a></li>
+                    <li><a href="privacypolicy.html">Privacy Policy</a></li>
                 </ul>
             </div>
             <div class="footer-section contact">

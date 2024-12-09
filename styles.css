@@ -346,6 +346,22 @@ ul li {
     color: #777;
 } */
 
+
+#notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: Green;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    display: none;
+    z-index: 9999;
+}
+
+
 #contact {
     text-align: center;
     margin: 50px auto;
@@ -504,7 +520,7 @@ ul li {
     color: #777;
 }
 
-.add-to-cart,
+
 .wishlist {
     margin: 10px 5px;
     padding: 10px 15px;
@@ -513,11 +529,175 @@ ul li {
     cursor: pointer;
 }
 
-.add-to-cart {
-    background-color: #333;
-    color: #fff;
-    font-size: 0.9rem;
+#notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    display: none;
+    z-index: 9999;
 }
+
+#notification.show {
+    opacity: 1;
+}
+
+.search-section {
+    padding: 40px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.search-bar-container {
+    margin-bottom: 20px;
+}
+
+#search-input {
+    padding: 10px;
+    width: 300px;
+    font-size: 16px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+}
+
+#search-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #333;
+    color: white;
+    border: none;
+}
+
+.filters-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.filter-category {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+.filter-category label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    
+}
+
+
+/* Product Grid and Cards */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.product-card h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.product-card p {
+    font-size: 14px;
+    color: #555;
+}
+
+.product-card .add-to-cart {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.product-card .add-to-cart:hover {
+    background-color: #555;
+}
+
+.add-to-cart {
+    width: 95%;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 0px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-align: center;
+    transition: background 0.3s ease, transform 0.3s ease;
+    align-items: center;
+}
+
+.add-to-cart:hover {
+    background-color: #555;
+    transform: scale(1.05);
+}
+
+.bag-icon a img {
+    transition: transform 0.3s ease;
+}
+
+.bag-icon a img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.person-icon a img {
+    transition: transform 0.3s ease;
+}
+
+.person-icon a img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.search-icon a img {
+    transition: transform 0.3s ease;
+}
+
+.search-icon a img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+
+
+
+
 
 .wishlist {
     background-color: #fff;
