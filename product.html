@@ -25,14 +25,14 @@
     flex: 1;
     max-width: 500px;
     margin-right: 20px;
-    overflow: hidden; /* Ensures the zoom effect works within the container */
-    position: relative; /* Ensure positioning context for zoom effect */
+    overflow: hidden;
+    position: relative; 
 }
 
 .product-image img {
     width: 100%;
-    transition: transform 0.1s ease-in-out; /* Faster transition */
-    transform-origin: center center; /* Default zoom center */
+    transition: transform 0.1s ease-in-out; 
+    transform-origin: center center; 
 }
 
 .product-image:hover img {
@@ -63,16 +63,16 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 24px;
     font-weight: bold;
-    color: #333; /* Updated to match color scheme */
+    color: #333; 
     margin-bottom: 20px;
 }
 
 .product-actions {
     display: flex;
-    justify-content: flex-start; /* Align the buttons to the left */
+    justify-content: flex-start;
     align-items: center;
-    gap: 10px; /* Adds space between size/quantity and add-to-cart button */
-    margin-top: 20px; /* Added space between product info and actions */
+    gap: 10px; 
+    margin-top: 20px;
 }
 
 .product-actions .selectors {
@@ -107,18 +107,18 @@
     font-size: 14px;
     border-radius: 0px;
     display: flex;
-    align-items: center; /* Aligns logo and text */
+    align-items: center; 
     justify-content: center;
-    gap: 10px; /* Adds space between logo and text */
-    height: 40px; /* Consistent button height */
+    gap: 10px; 
+    height: 40px; 
     width: 60%;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for color change */
+    transition: background-color 0.3s ease, color 0.3s ease; 
 }
 
 .add-to-cart img {
-    width: 20px; /* Resize the bag logo */
+    width: 20px; 
     height: auto;
-    transition: filter 0.3s ease; /* Smooth transition for color inversion */
+    transition: filter 0.3s ease; 
 }
 
 .add-to-cart:hover {
@@ -127,10 +127,10 @@
 }
 
 .add-to-cart:hover img {
-    filter: invert(1); /* Inverts the color of the bag logo */
+    filter: invert(1); 
 }
 
-/* Adjusting Responsiveness */
+/* Page Responsiveness */
 @media screen and (max-width: 768px) {
     .product-detail-container {
         flex-direction: column;
