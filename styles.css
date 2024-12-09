@@ -526,3 +526,32 @@ ul li {
     border: 1px solid #333;
     display: inline-block;
 }
+
+/* 
+.basket-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+    gap: 20px;
+}
+
+.basket-item img {
+    max-width: 120px;
+    height: auto;
+    border-radius: 5px;
+    object-fit: contain;
+}
+
+.basket-item .item-info {
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+.basket-item .item-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+} */

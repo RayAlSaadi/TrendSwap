@@ -1,13 +1,38 @@
+// Initialize basket from localStorage or with an empty array if none exists
+let basket = getBasket();
 
-let basket = [
-    { name: "Product Name", price: 50.00, quantity: 1 }
-];
+// Function to get basket from localStorage
+function getBasket() {
+    return JSON.parse(localStorage.getItem('basket')) || [];
+}
 
+// Function to save basket to localStorage
+function saveBasket(basket) {
+    localStorage.setItem('basket', JSON.stringify(basket));
+}
+
+
+function showNotification(message) {
+    const notification = document.getElementById('notification');
+    notification.textContent = message; // Set message content
+    notification.classList.add('show'); // Add the 'show' class to trigger animation
+    notification.style.display = 'block'; // Ensure it's visible
+
+    console.log('Notofocation should show:', message);
+
+    setTimeout(() => {
+        notification.classList.remove('show'); // Remove 'show' class after 3 seconds
+    }, 3000);
+}
+
+
+
+// Function to render basket items and update total price
 function renderBasket() {
     const basketContainer = document.getElementById("basket-container");
     const totalPriceElement = document.getElementById("total-price");
 
-    basketContainer.innerHTML = ""; 
+    basketContainer.innerHTML = ""; // Clear current basket content
     let totalPrice = 0;
 
     basket.forEach((item, index) => {
@@ -15,7 +40,7 @@ function renderBasket() {
         itemElement.className = "basket-item";
         itemElement.innerHTML = `
             <p>Item ${index + 1}: <span class="item-name">${item.name}</span></p>
-            <p>Price: $<span class="item-price">${item.price.toFixed(2)}</span></p>
+            <p>Price: £<span class="item-price">${item.price.toFixed(2)}</span></p>
             <p>Quantity: <input type="number" class="item-quantity" value="${item.quantity}" min="1" data-index="${index}"></p>
             <button class="remove-item" data-index="${index}">Remove</button>
         `;
@@ -27,57 +52,46 @@ function renderBasket() {
     totalPriceElement.textContent = totalPrice.toFixed(2);
 }
 
+// Function to add a product to the basket
+function addToBasket(product) {
+    const existingProduct = basket.find(item => item.name === product.name);
+
+    if (existingProduct) {
+        existingProduct.quantity += 1; // Increase quantity if product already in basket
+    } else {
+        basket.push({ ...product, quantity: 1 }); // Add new product
+    }
+
+    saveBasket(basket); // Save updated basket to localStorage
+    console.log('Product added to basket:', product); 
+    showNotification(`${product.name} added to the basket!`);
+}
+
+// Event listener for changing item quantities
 document.addEventListener("change", (e) => {
     if (e.target.classList.contains("item-quantity")) {
-        const index = e.target.getAttribute("data-index");
-        const newQuantity = parseInt(e.target.value);
+        const index = parseInt(e.target.dataset.index, 10);
+        let newQuantity = Math.max(1, parseInt(e.target.value, 10)); // Ensure positive quantity
         basket[index].quantity = newQuantity;
+        saveBasket(basket);
         renderBasket();
     }
 });
 
-basketContainer.addEventListener('click', (e) => {
-    if (e.target.classList.contains('remove-item')) {
-        const basket = getBasket(); 
-        const productName = e.target.dataset.name; 
-        
-        const updatedBasket = basket.filter(item => item.name !== productName);
-        
-        saveBasket(updatedBasket); 
-        displayBasket(); 
+// Event listener for removing items from the basket
+document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("remove-item")) {
+        const index = parseInt(e.target.dataset.index, 10);
+        basket.splice(index, 1); // Remove item at specified index
+        saveBasket(basket); // Save updated basket
+        renderBasket(); // Update basket UI
+        showNotification(`Item removed from the basket.`);
     }
 });
 
-
-function getBasket() {
-    return JSON.parse(localStorage.getItem('basket')) || [];
-}
-
-function saveBasket(basket) {
-    localStorage.setItem('basket', JSON.stringify(basket));
-}
-
-function addToBasket(product) {
-    const basket = getBasket();
-    const existingProduct = basket.find(item => item.name === product.name);
-
-    if (existingProduct) {
-        existingProduct.quantity += 1; 
-    } else {
-        basket.push({ ...product, quantity: 1 }); 
-    }
-
-    saveBasket(basket);
-    const notification = document.getElementById('notification');
-    notification.style.display = 'block';
-    notification.textContent = `${product.name} added to the basket`;
-
-    setTimeout(() => {
-        notification.style.display = 'none';
-    }, 3000);
-}
-
+// Event listener for adding items to the basket (triggered by buttons)
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOMContentLoaded fired');
     const addToBasketButtons = document.querySelectorAll('.add-to-basket');
 
     addToBasketButtons.forEach(button => {
@@ -88,11 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 image: button.dataset.image,
             };
 
-            addToBasket(product);
+            addToBasket(product); // Add product to the basket
         });
     });
+
 });
-
-
-renderBasket();
-
