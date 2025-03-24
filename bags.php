@@ -1,10 +1,5 @@
-<?php
-session_start();
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "trendswap_local";
-
+\<?php
+include 'db_connect.php';
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -64,6 +59,6 @@ $result = $conn->query($sql);
         ?>
     </div>
 </div>
-
+<?php include 'moonoverlay.php'; ?>
 </body>
 </html>

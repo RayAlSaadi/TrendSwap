@@ -1,4 +1,4 @@
-<?php
+<?php 
 include 'db_connect.php'; // Ensure you have a database connection file
 
 // Fetch Men's products from the database
@@ -16,57 +16,106 @@ $result = $stmt->get_result();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Men's Collection</title>
+    <title>Mens Collection</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/footer.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+
+
+
+
+        /* Product Styling */
+        .product {
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .product h3 {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #333;
+        }
+        
+        .product p {
+            margin: 5px 0;
+            color: #666;
+        }
+        
+        .product .product-price {
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .product h3 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin: 10px 0 5px 0;
+        }
+        
+        .product p {
+            font-size: 16px;
+            color: #333;
+            margin: 5px 0 15px 0;
+        }
+        
+
+
+        /* Notification Styling */
+        #notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+            z-index: 1000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        #notification.show {
+            display: block;
+            opacity: 1;
+        }
+
+
+
+    </style>
 </head>
 
 <body>
-    <div class="delivery-info">
-        Free Delivery Available | Find out more
-    </div>
 
-    <div class="navbar">
-        <div class="navbar-left">
-            <div class="navbar-logo">
-                <img src="Images/Logo.jpg" alt="Logo">
-            </div>
-            <div class="navbar-links">
-                <a href="index.php">HOME</a>
-                <a href="men.php" class="active">MEN</a>
-                <a href="women.php">WOMAN</a>
-                <a href="kids.php">KIDS</a>
-                <a href="accessories.php">ACCESSORIES</a>
-                <a href="babies.php">BABIES</a>
-                <a href="aboutus.html">ABOUT US</a>
-            </div>
-        </div>
-        <div class="navbar-right">
-            <div class="search-icon">
-                <img src="Images/Search.png" alt="Search" id="search-icon">
-            </div>
-            <div class="search-bar" id="search-bar">
-                <input type="text" placeholder="Search...">
-            </div>
-            <div class="bag-icon">
-    <a href="cart.php">
-        <img src="Images/Bag.png" alt="Bag">
-        <span id="cart-count" class="cart-count">0</span> 
-    </a>
-</div>
-
-            <div class="person-icon">
-                <a href="signup.html">
-                    <img src="Images/Person.png" alt="Person">
-                </a>
-            </div>
-        </div>
-    </div>
+    <!-- Include header.php -->
+    <?php include 'phpLogic/header.php'; ?>
+    
+    <?php include 'moonoverlay.php'; ?>
 
     <div class="watches-header">
-    <h1>MEN'S SECTION</h1>
-    <p>Elevate your style with our exclusive men's collection. From timeless classics to modern essentials, our carefully curated selection ensures you stay sharp, confident, and comfortable. <a href="#">Read more</a></p>
-</div>
+        <h1>MEN'S SECTION</h1>
+        <p>Elevate your style with our exclusive men's collection. From timeless classics to modern essentials, our carefully curated selection ensures you stay sharp, confident, and comfortable. <a href="#">Read more</a><br></p>
+    </div>
+
     <!-- ✅ Hero Section (Banner) -->
     <section class="hero-section">
         <img src="Images/home.webp" alt="Winter Outfit">
@@ -93,19 +142,21 @@ $result = $stmt->get_result();
                 $product_name = $row['name'];
                 $product_desc = $row['description'];
                 $product_price = $row['price'];
-                $product_images = explode(",", $row['image']);
-                $product_image = !empty($product_images[0]) ? $product_images[0] : "default.jpg"; // Fallback image
+                $product_size = $row['size'];    // Size of the product
+                $product_color = $row['color'];  // Color of the product
+                $product_images = explode(",", $row['image']); // Handle multiple images
+                
+                // Default fallback image if not set
+                $product_image = !empty($product_images[0]) ? $product_images[0] : "default.jpg"; // Ensure default.jpg exists
+
                 ?>
                 <div class="product">
-                    <img src="Images/<?php echo htmlspecialchars($product_image); ?>" alt="<?php echo htmlspecialchars($product_name); ?>">
+                    <a href="product_details.php?id=<?php echo $product_id; ?>">
+                        <img src="Images/<?php echo htmlspecialchars($product_image); ?>" alt="<?php echo htmlspecialchars($product_name); ?>">
+                    </a>
                     <h3><?php echo htmlspecialchars($product_name); ?></h3>
                     <p>£<?php echo number_format($product_price, 2); ?></p>
-
-                    <!-- ✅ Add to Cart Button -->
-                    <button class="add-to-cart" data-id="<?php echo $product_id; ?>">Add to Cart</button>
-
-                    <!-- ✅ Wishlist Button (Heart Symbol) -->
-                    <button class="add-to-wishlist" data-id="<?php echo $product_id; ?>">❤️</button>
+                    <button class="add-to-wishlist" data-id="<?php echo $product_id; ?>">&#x2764;</button>
                 </div>
                 <?php
             }
@@ -116,41 +167,96 @@ $result = $stmt->get_result();
     </section>
 
     <!-- ✅ Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section about">
-                <h3>About Us</h3>
-                <p>We are a leading online store providing the latest fashion trends for men, women, and kids. Our mission is to deliver quality products at affordable prices.</p>
-            </div>
-            <div class="footer-section links">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="aboutus.php">About</a></li>
-                    <li><a href="contact.php">Contact</a></li>
-                    <li><a href="#">FAQs</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div class="footer-section contact">
-                <h3>Contact Us</h3>
-                <p>Email: info@trendswap.com</p>
-                <p>Phone: +44 7392 284916</p>
-                <div class="social-icons">
-                    <a href="#"><img src="Images/FacebookW.png" alt="Facebook"></a>
-                    <a href="#"><img src="Images/InstagramW.png" alt="Instagram"></a>
-                    <a href="#"><img src="Images/XW.png" alt="X"></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 TrendSwap. All Rights Reserved.</p>
-        </div>
-    </footer>
+    <?php include 'phpLogic/footer.php'; ?>
    
-     <!-- ✅ Notification Element (Fix for Error) -->
-     <div id="notification" class="notification"></div>
-    <!-- ✅ External JS File (cart.js) -->
-    <script src="js/cart.js"></script>
+    <!-- ✅ Notification Element -->
+    <div id="notification" class="notification"></div>
 
+    <!-- External JS File (cart.js) -->
+    <script src="js/cart.js"></script>
+    
+    <script>
+        // Notification functionality
+        document.addEventListener("DOMContentLoaded", function() {
+            // Override the default cart.js behavior to add notifications
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default if cart.js has it
+                    const productId = this.dataset.id;
+                    
+                    fetch("add_to_cart.php", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                        body: `product_id=${productId}&quantity=1`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        showNotification(data.success || data.error);
+                        if (data.success) {
+                            updateCartCount();
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error adding to cart:", error);
+                        showNotification("Error adding item to cart");
+                    });
+                });
+            });
+            
+            // Override wishlist functionality to add notifications
+            const wishlistButtons = document.querySelectorAll('.add-to-wishlist');
+            wishlistButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default if cart.js has it
+                    const productId = this.dataset.id;
+                    
+                    fetch("add_to_wishlist.php", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                        body: `product_id=${productId}`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        showNotification(data.success || data.error);
+                    })
+                    .catch(error => {
+                        console.error("Error adding to wishlist:", error);
+                        showNotification("Error adding to wishlist");
+                    });
+                });
+            });
+            
+            // Notification function
+            function showNotification(message) {
+                const notification = document.getElementById("notification");
+                if (!notification) return;
+                
+                notification.textContent = message;
+                notification.classList.add("show");
+                notification.style.display = "block";
+                
+                setTimeout(() => {
+                    notification.classList.remove("show");
+                    setTimeout(() => {
+                        notification.style.display = "none";
+                    }, 300);
+                }, 3000);
+            }
+            
+            // Update cart count function
+            function updateCartCount() {
+                fetch("cart_count.php")
+                .then(response => response.json())
+                .then(data => {
+                    const cartIcon = document.querySelector(".bag-icon");
+                    if (cartIcon) {
+                        cartIcon.setAttribute("data-count", data.count || 0);
+                    }
+                })
+                .catch(error => console.error("Error updating cart count:", error));
+            }
+        });
+    </script>
 </body>
 </html>

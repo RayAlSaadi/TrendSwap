@@ -1,10 +1,10 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "trendswap_local";
+$host = "localhost:3306";
+$username = "cs2team2";  
+$password = "VJNGzpwV9pVxZwb";  
+$dbname = "cs2team2_db";  
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
