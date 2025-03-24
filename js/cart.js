@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("✅ cart.js loaded"); // debugging
+    console.log("✅ cart.js loaded"); // Debugging
 
-  
+    // 📌 ADD TO CART FUNCTIONALITY
     const cartButtons = document.querySelectorAll(".add-to-cart");
 
     cartButtons.forEach(button => {
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-   
+    // 📌 ADD TO WISHLIST FUNCTIONALITY
     const wishlistButtons = document.querySelectorAll(".add-to-wishlist");
 
     wishlistButtons.forEach(button => {
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-   
+    // 📌 SHOW NOTIFICATIONS
     function showNotification(message) {
         const notification = document.getElementById("notification");
         if (!notification) {
@@ -79,10 +79,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 3000);
     }
 
-   
+    // 📌 UPDATE CART COUNT FUNCTIONALITY
     function updateCartCount() {
         fetch("cart_count.php")
-        .then(response => response.json()) 
+        .then(response => response.json()) // Expect JSON response
         .then(data => {
             console.log("🛒 Cart count response:", data);
             const cartIcon = document.querySelector(".bag-icon");
@@ -95,17 +95,17 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => console.error("🚨 Error fetching cart count:", error));
     }
 
-  
+    // Initial cart count update
     updateCartCount();
 });
 
-
+// SEARCH BAR TOGGLE FUNCTIONALITY
 document.addEventListener("DOMContentLoaded", () => {
     const searchIcon = document.getElementById("search-icon");
     const searchBar = document.getElementById("search-bar");
     let isSearchOpen = false;
 
-    if (searchIcon && searchBar) { 
+    if (searchIcon && searchBar) { // Ensure elements exist before adding event listeners
         searchIcon.addEventListener("click", (event) => {
             event.stopPropagation();
             if (isSearchOpen) {
@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function showNotification(message) {
     let notification = document.getElementById('notification');
 
-    
+    // ✅ If notification element doesn't exist, create it
     if (!notification) {
         notification = document.createElement("div");
         notification.id = "notification";
@@ -148,19 +148,19 @@ function showNotification(message) {
         notification.classList.remove('show');
     }, 3000);
 }
-
+// Fetch Cart Count from `cart_count.php`
 function updateCartCount() {
     fetch("cart_count.php")
     .then(response => response.json())
     .then(data => {
         const cartCount = document.getElementById("cart-count");
         if (cartCount) {
-            cartCount.textContent = data.count; 
+            cartCount.textContent = data.count; // Update count
         }
     })
     .catch(error => console.error("Error fetching cart count:", error));
 }
 
-
+// Run updateCartCount on Page Load
 document.addEventListener("DOMContentLoaded", updateCartCount);
 

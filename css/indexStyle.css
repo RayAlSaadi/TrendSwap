@@ -1,0 +1,125 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        header .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        header .nav {
+            margin-top: 10px;
+        }
+
+        header .nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        header .nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        header .nav ul li a {
+            color: white;
+            font-size: 1.1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        header .nav ul li a:hover {
+            color: #f44336;
+        }
+
+        /* Responsive Menu */
+        @media (max-width: 768px) {
+            header .nav ul {
+                text-align: center;
+                margin-top: 20px;
+            }
+
+            header .nav ul li {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+
+        /* Styling for the logout button */
+        .logout-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .logout-btn a {
+            padding: 10px 20px;
+            background-color: #f44336;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .logout-btn a:hover {
+            background-color: #e53935;
+        }
+
+        /* Categories Section Styling */
+        .categories-section {
+            display: flex;
+            width: 100%;
+            height: 130vh;
+        }
+
+        .category {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .category a {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            text-decoration: none;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .category:hover img {
+            transform: scale(1.1);
+        }
+
+        .category:hover a {
+            transform: translate(-50%, -50%) scale(1);
+            background: rgba(0, 0, 0, 0.7);
+        }

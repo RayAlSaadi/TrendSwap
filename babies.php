@@ -1,8 +1,8 @@
 <?php 
 session_start();
 include 'db_connect.php';
-
-$category_id = 4; 
+// Fetch Babies products from the database
+$category_id = 4; // Assuming 'Babies' category has ID = 4
 $sql = "SELECT * FROM products WHERE category_id = $category_id";
 $result = $conn->query($sql);
 ?>

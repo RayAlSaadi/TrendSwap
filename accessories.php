@@ -1,8 +1,8 @@
 <?php
 session_start();
-include 'db_connect.php';
-
-$category_id = 5; 
+include 'db_connect.php'; // Ensure database connection
+// Fetch Accessories products from the database
+$category_id = 5; // Assuming 'Accessories' category has ID = 5
 $sql = "SELECT * FROM products WHERE category_id = $category_id";
 $result = $conn->query($sql);
 ?>  
@@ -66,7 +66,7 @@ $result = $conn->query($sql);
     <?php include 'phpLogic/footer.php'; ?>
     <?php include 'moonoverlay.php'; ?>
    
-   
+    <!-- Notification element -->
     <div id="notification" class="notification"></div>
 
     <!-- External JS File (cart.js) -->

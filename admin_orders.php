@@ -2,13 +2,13 @@
 session_start();
 include 'db_connect.php';
 
-
-if (!isset($_SESSION["user_id"]) || $_SESSION["user_id"] != 30) {
+// Check if user is admin (you can adjust this check based on your authentication system)
+if (!isset($_SESSION["user_id"]) || $_SESSION["user_id"] != 30) { // Assuming user_id 8 is your masterAdmin
     header("Location: login.php");
     exit();
 }
 
-
+// Process status updates
 if (isset($_POST['update_status'])) {
     $order_id = $_POST['order_id'];
     $new_status = $_POST['new_status'];
@@ -23,7 +23,7 @@ if (isset($_POST['update_status'])) {
     }
 }
 
-
+// Get all orders
 $orders_query = "SELECT o.*, u.first_name, u.last_name FROM orders o 
                 JOIN users u ON o.user_id = u.user_id 
                 ORDER BY o.order_date DESC";

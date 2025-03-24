@@ -2,8 +2,8 @@
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-include 'db_connect.php'; 
-header('Content-Type: application/json'); 
+include 'db_connect.php'; // Ensure this is correct
+header('Content-Type: application/json'); // Ensures JSON output
 
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(["error" => "User not logged in"]);
@@ -20,7 +20,7 @@ if ($product_id === 0) {
     exit;
 }
 
-
+// Check if size is required for this product (excluding accessories/babies)
 if (empty($size)) {
     $category_check = $conn->prepare("SELECT category_id FROM products WHERE product_id = ?");
     $category_check->bind_param("i", $product_id);
@@ -28,17 +28,17 @@ if (empty($size)) {
     $result = $category_check->get_result();
     $product_data = $result->fetch_assoc();
     
-   
+    // Categories 1, 2, 3 (Men, Women, Kids) require size selection
     if (in_array($product_data['category_id'], [1, 2, 3])) {
         echo json_encode(["error" => "Please select a size"]);
         exit;
     } else {
-       
+        // For accessories and babies, set size to "One Size"
         $size = "One Size";
     }
 }
 
-
+// Check if the selected size has enough stock
 $stock_check = $conn->prepare("SELECT stock FROM product_sizes WHERE product_id = ? AND size = ?");
 $stock_check->bind_param("is", $product_id, $size);
 $stock_check->execute();
@@ -55,7 +55,7 @@ if ($stock_data['stock'] < $quantity) {
     exit;
 }
 
-//  Check if the user has a cart
+// 1️⃣ Check if the user has a cart
 $cart_query = $conn->prepare("SELECT cart_id FROM carts WHERE user_id = ?");
 $cart_query->bind_param("i", $user_id);
 $cart_query->execute();
@@ -63,7 +63,7 @@ $cart_result = $cart_query->get_result();
 $cart_row = $cart_result->fetch_assoc();
 
 if (!$cart_row) {
-   
+    // 2️⃣ If cart doesn't exist, create one
     $create_cart = $conn->prepare("INSERT INTO carts (user_id, created_at) VALUES (?, NOW())");
     $create_cart->bind_param("i", $user_id);
     $create_cart->execute();
@@ -72,7 +72,7 @@ if (!$cart_row) {
     $cart_id = $cart_row['cart_id'];
 }
 
-
+// 3️⃣ Check if product with the same size exists in cart_items
 $check_item = $conn->prepare("SELECT cart_item_id, quantity FROM cart_items WHERE cart_id = ? AND product_id = ? AND size = ?");
 $check_item->bind_param("iis", $cart_id, $product_id, $size);
 $check_item->execute();
@@ -80,10 +80,10 @@ $item_result = $check_item->get_result();
 $item_row = $item_result->fetch_assoc();
 
 if ($item_row) {
-    
+    // 4️⃣ If product exists with same size, update quantity
     $new_quantity = $item_row['quantity'] + $quantity;
     
-    
+    // Check if new quantity exceeds available stock
     if ($new_quantity > $stock_data['stock']) {
         echo json_encode(["error" => "Cannot add more items. Only " . $stock_data['stock'] . " items available in this size."]);
         exit;
@@ -93,7 +93,7 @@ if ($item_row) {
     $update_item->bind_param("ii", $new_quantity, $item_row['cart_item_id']);
     $update_item->execute();
 } else {
-    
+    // 5️⃣ Insert new item into cart with size
     $add_item = $conn->prepare("INSERT INTO cart_items (cart_id, product_id, quantity, size, created_at) VALUES (?, ?, ?, ?, NOW())");
     $add_item->bind_param("iiis", $cart_id, $product_id, $quantity, $size);
     $add_item->execute();

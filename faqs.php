@@ -3,56 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - TrendSwap</title>
-    <link rel="stylesheet" href="css/header.css">
-	<link rel="stylesheet" href="css/footer.css">
+    <title>TrendSwap</title>
     <link rel="stylesheet" href="css/styles.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        ul {
-            list-style-type: disc; 
-            margin-left: 20px;
-            font-size: 12px;
-        }
-        h2, p, h3{
-            margin-left: 50px;
-            margin-top: 30px;
-        }
-        ul{
-            margin-left: 100px;
-            margin-top: 30px;
-        }
-    </style>
-</head>
-<body>
-    
-    <?php include 'phpLogic/header.php'; ?>
-    <h2>Privacy and Policy</h2>
-    <p>We are an e-commerce store selling clothing and accessories. When you visit our website, you provide us with information about yourself, which we use. On this page, we would like to tell you about the information we use. We encourage you to read the entire policy carefully.</p>
-    
-    <h3>What information do we collect?</h3>
-    <ul>
-        <li>Information about your orders, including purchased items, saved items, shopping preferences, and payment methods.</li>
-        <li>We collect data on the products you view.</li>
-        <li>Your contact details when checking out or signing up for an account, including name, email, phone number, date of birth, and postal address.</li>
-        <li>Billing information.</li>
-    </ul>
-    
-    <h3>How we store your information</h3>
-    <p>At TrendSwap, we take your privacy and security seriously when storing and managing your personal information.</p>
-    <ul>
-        <li>All collected information is stored on a secure SQL database with encryption methods protecting sensitive data.</li>
-        <li>Only authorized personnel can access your personal information, and we do not store banking details.</li>
-        <li>Payments are processed using trusted payment providers for secure transactions.</li>
-        <li>We retain personal information as long as necessary to provide services and comply with legal obligations. If you close your account, your data is securely deleted.</li>
-    </ul>
-    
-    <h3>What you agree to</h3>
-    <p>By using TrendSwap, you agree to the collection, management, and storage of your personal data as described in this privacy policy. If you disagree, please refrain from using our services.</p>
-    
-    <h3>A kind message from our team</h3>
-    <p>Thank you for taking the time to read our Privacy Policy. We appreciate your trust and wish you happy shopping!</p>
 
-    <?php include 'phpLogic/footer.php'; ?>
+<body>
+<?php include 'phpLogic/header.php'; ?>
+
+<!-- Link to CSS -->
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/faq.css">
+<link rel="stylesheet" href="css/footer.css">
+
+<!-- Notification for adding to basket -->
+<div id="notification"></div>
+<div id="basket-container"></div>
+
+
+
+<section>
+    <h2 class="title">Frequently Asked Questions</h2>
+
+    <div class="faq">
+        <div class="question">
+            <h3> What is TrendSwap?</h3>
+            <svg width="15" height="10" viewBox="0 0 42 25">
+                <path d="M3 3L21 21L39 3" stroke="white" stroke-width="7" stroke-linecap="round"/>
+            </svg>
+        </div>
+        <div class="answer">
+            <p>TrendSwap is your go-to online store for trendy and affordable clothing and accessories for men, women, and kids. We offer a wide variety of stylish options for all occasions.</p>
+        </div>
+    </div>
+
+    <div class="faq">
+        <div class="question">
+            <h3>How can I contact customer support?</h3>
+            <svg width="15" height="10" viewBox="0 0 42 25">
+                <path d="M3 3L21 21L39 3" stroke="white" stroke-width="7" stroke-linecap="round"/>
+            </svg>
+        </div>
+        <div class="answer">
+            <p>You can reach us via email at support@trendswap.com or through our contact form feature available on the website during business hours.</p>
+        </div>
+    </div>
+
+    <div class="faq">
+        <div class="question">
+            <h3>What payment methods do you accept?</h3>
+            <svg width="15" height="10" viewBox="0 0 42 25">
+                <path d="M3 3L21 21L39 3" stroke="white" stroke-width="7" stroke-linecap="round"/>
+            </svg>
+        </div>
+        <div class="answer">
+            <p> We accept all major credit and debit cards, PayPal, Apple Pay, Google Pay, and other secure payment options.</p>
+        </div>
+    </div>
+
+    <div class="faq">
+        <div class="question">
+            <h3> Can I modify or cancel my order?</h3>
+            <svg width="15" height="10" viewBox="0 0 42 25">
+                <path d="M3 3L21 21L39 3" stroke="white" stroke-width="7" stroke-linecap="round"/>
+            </svg>
+        </div>
+        <div class="answer">
+            <p> Orders can be modified or canceled within 24 hours of placing them. Please contact our customer support team as soon as possible.</p>
+        </div>
+    </div>
+
+    <div class="faq">
+        <div class="question">
+            <h3>Do you offer international shipping?</h3>
+            <svg width="15" height="10" viewBox="0 0 42 25">
+                <path d="M3 3L21 21L39 3" stroke="white" stroke-width="7" stroke-linecap="round"/>
+            </svg>
+        </div>
+        <div class="answer">
+            <p> Yes, TrendSwap ships worldwide. Shipping rates and delivery times vary depending on your location.</p>
+        </div>
+    </div>
+
+    <div class="faq">
+        <div class="question">
+            <h3>How long will it take to receive my order?</h3>
+            <svg width="15" height="10" viewBox="0 0 42 25">
+                <path d="M3 3L21 21L39 3" stroke="white" stroke-width="7" stroke-linecap="round"/>
+            </svg>
+        </div>
+        <div class="answer">
+            <p>Orders within the UK typically arrive within 5-7 business days. International orders may take 7-14 business days, depending on the destination.</p>
+        </div>
+    </div>
+
+    <div class="faq">
+        <div class="question">
+            <h3> What is your return policy?</h3>
+            <svg width="15" height="10" viewBox="0 0 42 25">
+                <path d="M3 3L21 21L39 3" stroke="white" stroke-width="7" stroke-linecap="round"/>
+            </svg>
+        </div>
+        <div class="answer">
+            <p>We accept returns within 30 days of delivery for unused, unworn items with original tags. Visit our Returns & Refunds page for detailed instructions.</p>
+        </div>
+    </div>
+
+    <div class="faq">
+        <div class="question">
+            <h3> How long does it take to process my refund?</h3>
+            <svg width="15" height="10" viewBox="0 0 42 25">
+                <path d="M3 3L21 21L39 3" stroke="white" stroke-width="7" stroke-linecap="round"/>
+            </svg>
+        </div>
+        <div class="answer">
+            <p>Refunds are processed within 7-10 business days after receiving your returned items. You can get the refund back in the original payment method.</p>
+        </div>
+    </div>
+</section>
+
+<script src="js/faq.js"></script>
+
+<?php include 'phpLogic/footer.php'; ?>
 </body>
-</html>
+<script>
+    const searchIcon = document.getElementById('search-icon');
+    const searchBar = document.getElementById('search-bar');
+    let isSearchOpen = false;
+
+    searchIcon.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if (isSearchOpen) {
+            searchBar.style.width = '0';
+            searchBar.classList.remove('open');
+        } else {
+            searchBar.style.width = '200px';
+            searchBar.classList.add('open');
+        }
+        isSearchOpen = !isSearchOpen;
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!searchBar.contains(event.target) && !searchIcon.contains(event.target)) {
+            searchBar.style.width = '0';
+            searchBar.classList.remove('open');
+            isSearchOpen = false;
+        }
+    });
+</script>
+
+<script src="js/basket.js"></script>

@@ -3,7 +3,7 @@ session_start();
 include 'db_connect.php';
 header('Content-Type: application/json');
 
-
+// Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['error' => 'Please log in to add items to your wishlist']);
     exit;
@@ -17,7 +17,7 @@ if ($product_id === 0) {
     exit;
 }
 
-
+// Check if the product exists
 $product_check = $conn->prepare("SELECT product_id FROM products WHERE product_id = ?");
 $product_check->bind_param("i", $product_id);
 $product_check->execute();
@@ -28,14 +28,14 @@ if ($product_result->num_rows === 0) {
     exit;
 }
 
-
+// Check if user has a wishlist
 $wishlist_check = $conn->prepare("SELECT wishlist_id FROM wishlists WHERE user_id = ?");
 $wishlist_check->bind_param("i", $user_id);
 $wishlist_check->execute();
 $wishlist_result = $wishlist_check->get_result();
 $wishlist = $wishlist_result->fetch_assoc();
 
-
+// If no wishlist, create one
 if (!$wishlist) {
     $create_wishlist = $conn->prepare("INSERT INTO wishlists (user_id, created_at) VALUES (?, NOW())");
     $create_wishlist->bind_param("i", $user_id);
@@ -45,7 +45,7 @@ if (!$wishlist) {
     $wishlist_id = $wishlist['wishlist_id'];
 }
 
-
+// Check if the product is already in the wishlist
 $item_check = $conn->prepare("
     SELECT wishlist_item_id 
     FROM wishlist_items 
@@ -60,7 +60,7 @@ if ($item_result->num_rows > 0) {
     exit;
 }
 
-
+// Add the product to the wishlist
 $add_item = $conn->prepare("
     INSERT INTO wishlist_items (wishlist_id, product_id, created_at) 
     VALUES (?, ?, NOW())
