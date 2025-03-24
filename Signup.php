@@ -4,7 +4,7 @@ session_start();
 // Database connection
 include('db_connect.php');
 
-
+// Check database connection
 if (!$conn) {
     die("Database connection failed: " . mysqli_connect_error());
 }
@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
         $errors[] = "Password must be at least 8 characters";
     }
 
-   
+    // Check for existing email using prepared statement
     $stmt = $conn->prepare("SELECT user_id FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
     }
     $stmt->close();
 
-    
+    // Proceed if no errors
     if (empty($errors)) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         
@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) {
         $stmt->bind_param("ssss", $first_name, $last_name, $email, $hashed_password);
         
         if ($stmt->execute()) {
-         
+            // Success, store the success message in session
             $_SESSION['signup_success'] = "Registration successful! Please log in.";
             unset($_SESSION['form_data']);
             unset($_SESSION['signup_errors']);
@@ -60,7 +60,7 @@ if (isset($_POST['submit'])) {
         $stmt->close();
     }
     
-  
+    // If errors, preserve them in session and reload the form
     if (!empty($errors)) {
         $_SESSION['signup_errors'] = $errors;
         $_SESSION['form_data'] = $_POST;
@@ -80,7 +80,7 @@ mysqli_close($conn);
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <style>
-    /* sign-Up Page style */
+    /* Sign-Up Page Styles */
     .signup-container {
         display: flex;
         justify-content: center;
@@ -151,7 +151,7 @@ mysqli_close($conn);
         color: gray;
     }
 
-    /*   style */
+    /* Success message style */
     .success-message {
         color: green;
         background-color: #e6f7e6;
@@ -163,7 +163,7 @@ mysqli_close($conn);
         text-align: center;
     }
 
-    /* Error mesages style */
+    /* Error messages style */
     .error-messages {
         color: red;
         background-color: #f8d7da;
@@ -185,21 +185,21 @@ mysqli_close($conn);
         <div class="signup-box">
             <h2>Sign Up</h2>
             
-           
+            <!-- Display success message if set -->
             <?php
             if (isset($_SESSION['signup_success'])) {
                 echo '<p class="success-message">' . htmlspecialchars($_SESSION['signup_success']) . '</p>';
-                unset($_SESSION['signup_success']);  
+                unset($_SESSION['signup_success']);  // Clear success message after displaying
             }
                 
-         
+            // Display errors if set
             if (isset($_SESSION['signup_errors']) && !empty($_SESSION['signup_errors'])) {
                 echo '<ul class="error-messages">';
                 foreach ($_SESSION['signup_errors'] as $error) {
                     echo '<li>' . htmlspecialchars($error) . '</li>';
                 }
                 echo '</ul>';
-                unset($_SESSION['signup_errors']); 
+                unset($_SESSION['signup_errors']);  // Clear errors after displaying them
             }
             ?>
             
