@@ -9,9 +9,6 @@ TrendSwap is an e-commerce website that was designed to provide users with a wor
 3. [Database Setup](#database-setup)
 4. [Admin Access](#admin-access)
 5. [Features](#features)
-6. [File Structure](#file-structure)
-7. [Recent Enhancements](#recent-enhancements)
-8. [Troubleshooting](#troubleshooting)
 
 ## System Requirements
 
