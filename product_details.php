@@ -2,7 +2,7 @@
 session_start();
 include 'db_connect.php';
 
-// Get product ID from URL
+
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     header('Location: index.php');
     exit;
@@ -10,7 +10,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 
 $product_id = (int)$_GET['id'];
 
-// Get product details
+
 $product_query = $conn->prepare("
     SELECT p.*, c.name as category_name 
     FROM products p
@@ -28,10 +28,10 @@ if ($product_result->num_rows === 0) {
 
 $product = $product_result->fetch_assoc();
 
-// Get product images
+
 $images = [];
 
-// First try to get images from product_images table
+
 $images_query = $conn->prepare("
     SELECT image_path, is_primary 
     FROM product_images 
@@ -47,7 +47,7 @@ if ($images_result->num_rows > 0) {
         $images[] = $image['image_path'];
     }
 } else {
-    // Fallback to comma-separated images in products table
+    
     if (!empty($product['image'])) {
         $images = explode(',', $product['image']);
         foreach ($images as &$img) {
@@ -56,10 +56,10 @@ if ($images_result->num_rows > 0) {
     }
 }
 
-// Get product sizes
+
 $sizes = [];
 
-// First try to get sizes from product_sizes table
+
 $sizes_query = $conn->prepare("
     SELECT size, stock 
     FROM product_sizes 
@@ -75,16 +75,16 @@ if ($sizes_result->num_rows > 0) {
         $sizes[$size['size']] = $size['stock'];
     }
 } else {
-    // Fallback to comma-separated sizes in products table
+  
     if (!empty($product['size'])) {
         $size_array = explode(',', $product['size']);
         foreach ($size_array as $size) {
-            $sizes[trim($size)] = $product['stock']; // Assign general stock to each size
+            $sizes[trim($size)] = $product['stock']; 
         }
     }
 }
 
-// Get related products from the same category
+
 $related_query = $conn->prepare("
     SELECT * FROM products 
     WHERE category_id = ? AND product_id != ? 
@@ -96,7 +96,7 @@ $related_result = $related_query->get_result();
 $related_products = [];
 
 while ($related = $related_result->fetch_assoc()) {
-    // Get primary image for related product
+   
     $r_image_query = $conn->prepare("
         SELECT image_path 
         FROM product_images 
@@ -111,13 +111,38 @@ while ($related = $related_result->fetch_assoc()) {
         $r_image = $r_image_result->fetch_assoc();
         $related['display_image'] = $r_image['image_path'];
     } else {
-        // Fallback to first image in comma-separated list
+   
         $r_images = explode(',', $related['image']);
         $related['display_image'] = trim($r_images[0]);
     }
     
     $related_products[] = $related;
 }
+
+
+$reviews_query = $conn->prepare("
+    SELECT r.*, u.first_name, u.last_name 
+    FROM reviews r
+    JOIN users u ON r.user_id = u.user_id
+    WHERE r.product_id = ?
+    ORDER BY r.review_date DESC
+");
+$reviews_query->bind_param("i", $product_id);
+$reviews_query->execute();
+$reviews_result = $reviews_query->get_result();
+
+// Calculate average rating
+$avg_rating_query = $conn->prepare("
+    SELECT AVG(rating) as average_rating, COUNT(*) as review_count 
+    FROM reviews 
+    WHERE product_id = ?
+");
+$avg_rating_query->bind_param("i", $product_id);
+$avg_rating_query->execute();
+$avg_rating_result = $avg_rating_query->get_result();
+$rating_data = $avg_rating_result->fetch_assoc();
+$average_rating = $rating_data['average_rating'] ? round($rating_data['average_rating'], 1) : 0;
+$review_count = $rating_data['review_count'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -130,7 +155,7 @@ while ($related = $related_result->fetch_assoc()) {
     <style>
 
 
-        /* Product Details Specific Styles */
+        
         .product-container {
             max-width: 1200px;
             margin: 40px auto;
@@ -181,7 +206,7 @@ while ($related = $related_result->fetch_assoc()) {
 .product-title {
     font-size: 28px;
     margin-bottom: 10px;
-    color: var(--text-color); /* instead of #333 */
+    color: var(--text-color); 
 text-align: left;
 }
 
@@ -190,7 +215,7 @@ text-align: left;
             font-size: 24px;
             color: #333;
             margin-bottom: 20px;
-            color: var(--text-color); /* instead of #333 */
+            color: var(--text-color);
 
         }
         
@@ -417,6 +442,178 @@ text-align: left;
             color: #aaa;
         }
 
+.reviews-section {
+    width: 100%;
+    margin: 40px 0;
+}
+
+.reviews-section h2 {
+    margin-bottom: 20px;
+}
+
+.rating-summary {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.average-rating {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.rating-value {
+    font-size: 48px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.stars {
+    display: flex;
+}
+
+.star {
+    color: #ddd;
+    font-size: 24px;
+}
+
+.star.filled {
+    color: #FFD700;
+}
+
+.star.half-filled {
+    position: relative;
+    color: #ddd;
+}
+
+.star.half-filled::before {
+    content: "★";
+    position: absolute;
+    color: #FFD700;
+    width: 50%;
+    overflow: hidden;
+}
+
+.review-count {
+    font-size: 14px;
+    color: #666;
+}
+
+.write-review, .login-to-review {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.write-review h3 {
+    margin-bottom: 15px;
+}
+
+.login-to-review {
+    text-align: center;
+}
+
+.login-to-review a {
+    color: #4CAF50;
+    text-decoration: underline;
+}
+
+.rating-input {
+    margin-bottom: 15px;
+}
+
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 5px;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    font-size: 30px;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input:checked ~ label {
+    color: #FFD700;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.submit-review-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.submit-review-btn:hover {
+    background-color: #388E3C;
+}
+
+.reviews-list {
+    margin-top: 30px;
+}
+
+.review-item {
+    border-bottom: 1px solid #eee;
+    padding: 20px 0;
+}
+
+.review-item:last-child {
+    border-bottom: none;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.reviewer-name {
+    font-weight: bold;
+}
+
+.review-date {
+    color: #666;
+    font-size: 14px;
+}
+
+.review-rating {
+    margin-bottom: 10px;
+}
+
+.review-comment {
+    line-height: 1.6;
+}
+
+.no-reviews {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
 
     </style>
 </head>
@@ -552,6 +749,92 @@ text-align: left;
                 </div>
             </div>
         <?php endif; ?>
+        <div class="divider"></div>
+
+<div class="reviews-section">
+    <h2>Customer Reviews</h2>
+    
+    <div class="rating-summary">
+        <div class="average-rating">
+            <span class="rating-value"><?php echo $average_rating; ?></span>
+            <div class="stars">
+                <?php for($i = 1; $i <= 5; $i++): ?>
+                    <?php if($i <= $average_rating): ?>
+                        <span class="star filled">★</span>
+                    <?php elseif($i <= $average_rating + 0.5 && $i > $average_rating): ?>
+                        <span class="star half-filled">★</span>
+                    <?php else: ?>
+                        <span class="star">★</span>
+                    <?php endif; ?>
+                <?php endfor; ?>
+            </div>
+            <span class="review-count"><?php echo $review_count; ?> review<?php echo $review_count != 1 ? 's' : ''; ?></span>
+        </div>
+    </div>
+    
+    <?php if(isset($_SESSION['user_id'])): ?>
+        <div class="write-review">
+            <h3>Write a Review</h3>
+            <form id="review-form" method="post" action="submit_review.php">
+                <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
+                
+                <div class="rating-input">
+                    <p>Your Rating:</p>
+                    <div class="star-rating">
+                        <?php for($i = 5; $i >= 1; $i--): ?>
+                            <input type="radio" name="rating" id="star<?php echo $i; ?>" value="<?php echo $i; ?>" required>
+                            <label for="star<?php echo $i; ?>">★</label>
+                        <?php endfor; ?>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="review-comment">Your Review (optional):</label>
+                    <textarea id="review-comment" name="comment" rows="4" placeholder="Share your thoughts about this product..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn submit-review-btn">Submit Review</button>
+            </form>
+        </div>
+    <?php else: ?>
+        <div class="login-to-review">
+            <p>Please <a href="login.php?redirect=product_details.php?id=<?php echo $product_id; ?>">log in</a> to write a review.</p>
+        </div>
+    <?php endif; ?>
+    
+    <div class="reviews-list">
+        <?php if($reviews_result->num_rows > 0): ?>
+            <?php while($review = $reviews_result->fetch_assoc()): ?>
+                <div class="review-item">
+                    <div class="review-header">
+                        <div class="reviewer-name">
+                            <?php echo htmlspecialchars($review['first_name'] . ' ' . substr($review['last_name'], 0, 1) . '.'); ?>
+                        </div>
+                        <div class="review-date">
+                            <?php echo date('F j, Y', strtotime($review['review_date'])); ?>
+                        </div>
+                    </div>
+                    
+                    <div class="review-rating">
+                        <?php for($i = 1; $i <= 5; $i++): ?>
+                            <span class="star <?php echo ($i <= $review['rating']) ? 'filled' : ''; ?>">★</span>
+                        <?php endfor; ?>
+                    </div>
+                    
+                    <?php if(!empty($review['comment'])): ?>
+                        <div class="review-comment">
+                            <?php echo nl2br(htmlspecialchars($review['comment'])); ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <div class="no-reviews">
+                <p>This product has no reviews yet. Be the first to leave a review!</p>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
     </div>
 
     <!-- Include footer.php -->
@@ -561,22 +844,22 @@ text-align: left;
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Thumbnail Image Switching
+          
             const thumbnails = document.querySelectorAll('.thumbnail');
             const mainImage = document.getElementById('main-image');
             
             thumbnails.forEach(thumb => {
                 thumb.addEventListener('click', function() {
-                    // Update main image
+                   
                     mainImage.src = 'Images/' + this.dataset.src;
                     
-                    // Update active class
+                    
                     thumbnails.forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
                 });
             });
             
-            // Quantity Buttons
+            
             const decrementBtn = document.querySelector('.decrement-btn');
             const incrementBtn = document.querySelector('.increment-btn');
             const quantityInput = document.querySelector('.quantity-input');
@@ -596,7 +879,7 @@ text-align: left;
                 }
             });
             
-            // Add to Cart
+           
             const addToCartBtn = document.querySelector('.add-to-cart-btn');
             addToCartBtn?.addEventListener('click', function() {
                 if (this.disabled) return;
@@ -605,7 +888,7 @@ text-align: left;
                 const quantity = parseInt(quantityInput.value);
                 let selectedSize = "";
                 
-                // Get selected size if size options exist
+             
                 const sizeRadios = document.querySelectorAll('input[name="size"]');
                 if (sizeRadios.length > 0) {
                     let sizeSelected = false;
@@ -622,7 +905,7 @@ text-align: left;
                         return;
                     }
                     
-                    // Check if selected size is out of stock
+                    
                     const sizeLabel = document.querySelector(`input[name="size"][value="${selectedSize}"]`).closest('label');
                     if (sizeLabel.classList.contains('sold-out')) {
                         showNotification("Selected size is out of stock");
@@ -630,7 +913,7 @@ text-align: left;
                     }
                 }
                 
-                // Send fetch request
+               
                 fetch("add_to_cart.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -649,7 +932,7 @@ text-align: left;
                 });
             });
             
-            // Add to Wishlist
+            
             const wishlistBtn = document.querySelector('.add-to-wishlist');
             wishlistBtn?.addEventListener('click', function() {
                 const productId = this.dataset.id;
@@ -669,7 +952,7 @@ text-align: left;
                 });
             });
             
-            // Notification function
+            
             function showNotification(message) {
                 const notification = document.getElementById("notification");
                 if (!notification) return;
@@ -686,7 +969,7 @@ text-align: left;
                 }, 3000);
             }
             
-            // Update cart count
+            
             function updateCartCount() {
                 fetch("cart_count.php")
                 .then(response => response.json())
@@ -699,6 +982,25 @@ text-align: left;
                 .catch(error => console.error("Error updating cart count:", error));
             }
         });
+
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has('review')) {
+    if (urlParams.get('review') === 'submitted') {
+        showNotification("Thank you! Your review has been submitted.");
+    } else if (urlParams.get('review') === 'updated') {
+        showNotification("Your review has been updated successfully.");
+    }
+} else if (urlParams.has('error')) {
+    if (urlParams.get('error') === 'submit_failed') {
+        showNotification("Error submitting review. Please try again.");
+    } else if (urlParams.get('error') === 'update_failed') {
+        showNotification("Error updating review. Please try again.");
+    } else if (urlParams.get('error') === 'login_required') {
+        showNotification("Please log in to leave a review.");
+    } else if (urlParams.get('error') === 'missing_fields') {
+        showNotification("Please fill in all required fields.");
+    }
+}
     </script>
 </body>
 </html>
